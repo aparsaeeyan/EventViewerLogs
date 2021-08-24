@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "YxdcPRKFbivGvXGAf/zGYuVczRMfqQVTuo1Ks1dU8qlof3vjOi5oMXpEpPPrYVVpJK6PDx+pgcE8GF3UGevcRg==",
+  "success": true,
+  "projectFilePath": "D:\\Projects\\EventViewerLogs\\EventViewerLogs\\EventViewerLogs.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\parsaeeyan\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.1\\microsoft.netcore.platforms.5.0.1.nupkg.sha512",
+    "C:\\Users\\parsaeeyan\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
+    "C:\\Users\\parsaeeyan\\.nuget\\packages\\system.diagnostics.eventlog\\5.0.1\\system.diagnostics.eventlog.5.0.1.nupkg.sha512",
+    "C:\\Users\\parsaeeyan\\.nuget\\packages\\system.security.accesscontrol\\5.0.0\\system.security.accesscontrol.5.0.0.nupkg.sha512",
+    "C:\\Users\\parsaeeyan\\.nuget\\packages\\system.security.principal.windows\\5.0.0\\system.security.principal.windows.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
