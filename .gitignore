@@ -1,0 +1,14 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/EventViewerLogs/obj/Debug/net5.0/EventViewerLogs.csproj.CoreCompileInputs.cache
+/EventViewerLogs/obj/Debug/net5.0/EventViewerLogs.csproj.FileListAbsolute.txt
+/EventViewerLogs/obj/Debug/net5.0/EventViewerLogs.dll
+/EventViewerLogs/obj/Debug/net5.0/EventViewerLogs.pdb
+/.editorconfig
+/EventViewerLogs/bin/Debug/net5.0/ref/EventViewerLogs.dll
+/EventViewerLogs/bin/Debug/net5.0/EventViewerLogs.deps.json
+/EventViewerLogs/bin/Debug/net5.0/EventViewerLogs.dll
+/EventViewerLogs/bin/Debug/net5.0/EventViewerLogs.pdb
+/EventViewerLogs/obj/Debug/net5.0/ref/EventViewerLogs.dll

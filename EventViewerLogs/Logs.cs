@@ -11,25 +11,18 @@ namespace EventViewerLogs
     {
         private static string SourceName = null;
         private static string LogName = null;
-
         private static EventLog eventLog1;
 
         public static int EventId { get; private set; }
 
-        private static int procedureId = 0;
-        public static int ProcedureId
+
+        private static void CheckInit()
         {
-            get
+            if (SourceName == null || LogName == null)
             {
-                procedureId++;
-                return procedureId;
-            }
-            set
-            {
-                procedureId = value;
+                throw new Exception("You must first call the Init method.!");
             }
         }
-
 
         public static void Init(string sourceName, string logName)
         {
@@ -41,7 +34,6 @@ namespace EventViewerLogs
             SourceName = sourceName;
             LogName = logName;
 
-            #pragma warning disable CA1416 // Validate platform compatibility
             eventLog1 = new EventLog();
             if (!EventLog.SourceExists(SourceName))
             {
@@ -49,7 +41,6 @@ namespace EventViewerLogs
             }
             eventLog1.Source = SourceName;
             eventLog1.Log = logName;
-            #pragma warning restore CA1416 // Validate platform compatibility
 
         }
 
@@ -58,16 +49,14 @@ namespace EventViewerLogs
         {
             try
             {
-                SharedEntry();
-                lock (eventLog1)
-                {
-                    eventLog1.WriteEntry(message, EventLogEntryType.Warning, EventId++);
-                }
+                CheckInit();
+
+                eventLog1.WriteEntry(message, EventLogEntryType.Warning, EventId++);
             }
-            catch (OverflowException ofex)
+            catch (ArgumentException)
             {
                 EventId = 1;
-                InfoLogEntry(message);
+                WarnLogEntry(message);
             }
 
         }
@@ -76,14 +65,11 @@ namespace EventViewerLogs
         {
             try
             {
-                SharedEntry();
+                CheckInit();
 
-                lock (eventLog1)
-                {
-                    eventLog1.WriteEntry(message, EventLogEntryType.Information, EventId++);
-                }
+                eventLog1.WriteEntry(message, EventLogEntryType.Information, EventId++);
             }
-            catch (OverflowException ofex)
+            catch (ArgumentException)
             {
                 EventId = 1;
                 InfoLogEntry(message);
@@ -92,28 +78,24 @@ namespace EventViewerLogs
 
         public static void ErrorLogEntry(Exception ex, string methodName)
         {
-            SharedEntry();
+            CheckInit();
 
-            string textError = string.Format("************ this error occurred in method: {0}", methodName) + " ************";
-            textError += "\r\n" + ex.Message;
-
+            string textError = $"************ this error occurred in method: {methodName} ************ \r\n {ex.Message}";
 
             try
             {
                 var innerException = ex.InnerException;
                 while (innerException != null)
                 {
-                    textError += " ==> this error have InnerException ==> " + innerException;
+                    textError += $" ==> this error have InnerException ==> {innerException}";
                     innerException = innerException.InnerException;
                 }
 
-                textError += "\r\n StackTrace: \r\n" + ex.StackTrace;
-                lock (eventLog1)
-                {
-                    eventLog1.WriteEntry(textError, EventLogEntryType.Error, EventId++);
-                }
+                textError += $"\r\n StackTrace: \r\n {ex.StackTrace}";
+
+                eventLog1.WriteEntry(textError, EventLogEntryType.Error, EventId++);
             }
-            catch (OverflowException ofex)
+            catch (ArgumentException)
             {
                 EventId = 1;
                 ErrorLogEntry(ex, methodName);
@@ -122,30 +104,21 @@ namespace EventViewerLogs
 
         public static void ErrorLogEntry(string message)
         {
-            SharedEntry();
+            CheckInit();
 
             try
             {
-                lock (eventLog1)
-                {
-                    eventLog1.WriteEntry(message, EventLogEntryType.Error, EventId++);
-                }
+                eventLog1.WriteEntry(message, EventLogEntryType.Error, EventId++);
             }
-            catch (OverflowException ofex)
+            catch (ArgumentException)
             {
                 EventId = 1;
                 ErrorLogEntry(message);
             }
         }
 
-        private static void SharedEntry()
-        {
-            if (SourceName == null || LogName == null)
-            {
-                throw new Exception("you must initialize first!");
-            }
-        }
 
-   
+
+
     }
 }
