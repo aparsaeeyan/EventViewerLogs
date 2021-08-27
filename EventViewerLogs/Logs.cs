@@ -37,10 +37,10 @@ namespace EventViewerLogs
             eventLog1 = new EventLog();
             if (!EventLog.SourceExists(SourceName))
             {
-                EventLog.CreateEventSource(SourceName, logName);
+                EventLog.CreateEventSource(SourceName, LogName);
             }
             eventLog1.Source = SourceName;
-            eventLog1.Log = logName;
+            eventLog1.Log = LogName;
 
         }
 
@@ -55,7 +55,7 @@ namespace EventViewerLogs
             }
             catch (ArgumentException)
             {
-                EventId = 1;
+                EventId = 0;
                 WarnLogEntry(message);
             }
 
@@ -71,7 +71,7 @@ namespace EventViewerLogs
             }
             catch (ArgumentException)
             {
-                EventId = 1;
+                EventId = 0;
                 InfoLogEntry(message);
             }
         }
@@ -97,7 +97,7 @@ namespace EventViewerLogs
             }
             catch (ArgumentException)
             {
-                EventId = 1;
+                EventId = 0;
                 ErrorLogEntry(ex, methodName);
             }
         }
@@ -112,7 +112,7 @@ namespace EventViewerLogs
             }
             catch (ArgumentException)
             {
-                EventId = 1;
+                EventId = 0;
                 ErrorLogEntry(message);
             }
         }
